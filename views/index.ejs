@@ -1,0 +1,190 @@
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-contentnp: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f2f2f2;
+}
+
+.login-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+  </style>
+  <title>Login Page</title>
+
+</head>
+<body>
+ 
+
+
+
+
+  <div class="login-container">
+    <h2>Login</h2>
+    <form action="" method="post" onsubmit="return checkLogin()">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <button type="submit" onclick="">Login</button>
+    </form>
+  </div>
+ 
+  <script>
+    function checkLogin() {
+      // Check if the user is logged in (you can replace this condition with your actual login check)
+      var isLoggedIn = /* Your login check logic, e.g., check if a user session exists */;
+
+      // If not logged in, redirect to the signup page
+      if (!isLoggedIn) {
+        window.location.href = 'signup.ejs'; // Replace 'signup.html' with your actual signup page URL
+        return false; // Prevent form submission
+      }
+
+      return true; // Allow form submission if the user is logged in
+    }
+</script>
+</body>
+</html> -->
+
+
+
+ 
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css"/>
+    
+
+  </head>
+  <body>
+    
+    <script src="api.js"></script>
+    <div class="navbar">
+      <div class="logo-container">
+        <img class="logo" src="/images/logo.png" alt="Logo">
+      </div>
+      
+      <div class="user-actions">
+        <a href="/stops">Bus Stop</a>
+        <a href="/bus_fares">Bus Fares</a>
+        <a  href="/login">Log In</a>
+        <a href="/signup">Sign Up</a>
+      </div>
+    </div>
+  
+    <div id="map">
+      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+      <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+   <script src="map.js"></script>
+   </div>
+
+  <div class="Location">
+    <p>Enter where you are and where you want to go below.</p><br>
+    <div class="form">
+      <div class="form1">
+        <input class="Enter" type="text" id="location" name="location"> 
+        <button class="btn" onclick="plotStartLocation()" type="submit"><i class="fas fa-search"></i> Locate Me</button>
+      </div>
+
+      <div class="form2">
+        <input class="Enter" type="text" id="destination" name="destination">
+        <button class="btn" onclick="plotDestination()" type="submit"><i class="fas fa-bus"></i> Find Me a Bus</button>
+      </div>
+    </div>
+
+    <table id="recommendedRoutes">
+      <script>    
+
+        function displayRecommendedRoutes(recommendedRoutes) {
+          const table = document.getElementById('recommendedRoutes');
+          table.innerHTML = ''; // Clear existing data
+
+          recommendedRoutes.forEach((route) => {
+            const row = table.insertRow();
+        
+            const cell1 = row.insertCell(0);
+            cell1.textContent = 'Recommended Route';
+        
+            const cell2 = row.insertCell(1);
+            cell2.textContent = `${route.availableBus}`;
+        
+            const cell3 = row.insertCell(2);
+            cell3.textContent = route.busRoutes.join('\n');
+        
+            const cell4 = row.insertCell(3);
+            cell4.textContent = `Total Distance: ${route.totalDistance} km`;
+          });
+        }
+        
+
+      </script>
+    </table>
+  </div>
+
+</body>
+</html> 
+ 
